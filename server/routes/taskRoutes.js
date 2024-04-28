@@ -1,4 +1,3 @@
-// taskRoutes.js
 
 const express = require("express");
 const router = express.Router();
@@ -8,7 +7,7 @@ const Task = require("../models/taskModel");
 router.get("/", async (req, res) => {
   try {
     const tasks = await Task.find();
-    res.json(tasks);
+    res.status(200).json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -52,12 +51,11 @@ router.patch("/:id", async (req, res) => {
 // Delete a task
 router.delete("/:id", async (req, res) => {
   try {
-    await Task.findByIdAndRemove(req.params.id);
-    res.json({ message: "Task deleted" });
+    await Task.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Task deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
 module.exports = router;
-s

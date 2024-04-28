@@ -1,4 +1,3 @@
-// taskModel.js
 
 const mongoose = require("mongoose");
 
