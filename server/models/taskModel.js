@@ -10,11 +10,12 @@ const taskSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  completed: {
+  removed: {
     type: Boolean,
     default: false
   }
 });
+
 
 const Task = mongoose.model("Task", taskSchema);
 

@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 app.use("/api/tasks", taskRoutes);
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect("mongodb+srv://anuragkainth07:Cij9hZCsAQbMkIgM@cluster0.pr1vj3u.mongodb.net/")
   .then(() => {
     app.listen(PORT, () => {
       console.log("Connected to DB & listening on port:", PORT);

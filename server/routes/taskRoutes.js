@@ -18,11 +18,10 @@ router.post("/", async (req, res) => {
   const task = new Task({
     title: req.body.title,
     description: req.body.description,
-    completed: req.body.completed || false
   });
   try {
     const newTask = await task.save();
-    res.status(201).json(newTask);
+    res.status(200).json(newTask);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -38,11 +37,8 @@ router.patch("/:id", async (req, res) => {
     if (req.body.description) {
       task.description = req.body.description;
     }
-    if (req.body.completed !== undefined) {
-      task.completed = req.body.completed;
-    }
     const updatedTask = await task.save();
-    res.json(updatedTask);
+    res.status(200).json(updatedTask);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -55,6 +51,18 @@ router.delete("/:id", async (req, res) => {
     res.status(200).json({ message: "Task deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// Remove a task
+router.patch("/remove/:id", async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    task.removed = !task.removed;
+    const removedTask = await task.save();
+    res.status(200).json(removedTask);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 
